@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --background: 40 20% 98%;
+    --foreground: 30 10% 15%;
+
+    --card: 40 20% 96%;
+    --card-foreground: 30 10% 15%;
+
+    --popover: 40 20% 98%;
+    --popover-foreground: 30 10% 15%;
+
+    --primary: 30 10% 15%;
+    --primary-foreground: 40 20% 98%;
+
+    --secondary: 35 15% 92%;
+    --secondary-foreground: 30 10% 20%;
+
+    --muted: 35 12% 90%;
+    --muted-foreground: 30 8% 45%;
+
+    --accent: 35 30% 85%;
+    --accent-foreground: 30 10% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 40 20% 98%;
+
+    --border: 35 15% 88%;
+    --input: 35 15% 88%;
+    --ring: 30 10% 15%;
+
+    --radius: 0.5rem;
+
+    /* Custom tokens */
+    --warm-gold: 38 60% 50%;
+    --warm-gold-light: 38 45% 75%;
+    --warm-cream: 40 40% 95%;
+    --warm-wood: 25 35% 30%;
+    --warm-stone: 30 12% 65%;
+    
+    --font-heading: 'Cormorant Garamond', 'Noto Serif TC', serif;
+    --font-body: 'Noto Serif TC', serif;
+
+    --sidebar-background: 40 20% 96%;
+    --sidebar-foreground: 30 10% 25%;
+    --sidebar-primary: 30 10% 15%;
+    --sidebar-primary-foreground: 40 20% 98%;
+    --sidebar-accent: 35 15% 90%;
+    --sidebar-accent-foreground: 30 10% 15%;
+    --sidebar-border: 35 15% 85%;
+    --sidebar-ring: 38 60% 50%;
+  }
+
+  .dark {
+    --background: 30 15% 8%;
+    --foreground: 40 20% 95%;
+
+    --card: 30 15% 10%;
+    --card-foreground: 40 20% 95%;
+
+    --popover: 30 15% 8%;
+    --popover-foreground: 40 20% 95%;
+
+    --primary: 40 20% 95%;
+    --primary-foreground: 30 15% 8%;
+
+    --secondary: 30 12% 15%;
+    --secondary-foreground: 40 20% 90%;
+
+    --muted: 30 12% 18%;
+    --muted-foreground: 35 10% 60%;
+
+    --accent: 30 15% 20%;
+    --accent-foreground: 40 20% 95%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 40 20% 95%;
+
+    --border: 30 12% 20%;
+    --input: 30 12% 20%;
+    --ring: 38 60% 50%;
+    
+    --sidebar-background: 30 15% 10%;
+    --sidebar-foreground: 40 20% 90%;
+    --sidebar-primary: 38 60% 50%;
+    --sidebar-primary-foreground: 30 15% 8%;
+    --sidebar-accent: 30 12% 18%;
+    --sidebar-accent-foreground: 40 20% 90%;
+    --sidebar-border: 30 12% 20%;
+    --sidebar-ring: 38 60% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+
+  img {
+    @apply rounded-xl;
+  }
+
+  /* GPU acceleration for animated elements */
+  .gpu-accelerate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+}
+
+@layer components {
+  .section-title {
+    @apply text-sm tracking-[0.3em] uppercase text-muted-foreground mb-4;
+  }
+  
+  .section-heading {
+    @apply text-4xl md:text-5xl lg:text-6xl font-light tracking-wide;
+    font-family: var(--font-heading);
+    letter-spacing: 0.15em;
+  }
+  
+  .card-hover {
+    @apply transition-transform duration-500;
+    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+  
+  .card-hover:hover {
+    transform: translate3d(0, -8px, 0);
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .image-reveal {
+    @apply overflow-hidden;
+  }
+  
+  .image-reveal img {
+    @apply transition-transform duration-700;
+    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+  
+  .image-reveal:hover img {
+    transform: scale3d(1.05, 1.05, 1);
+  }
+  
+  .btn-arrow {
+    @apply inline-flex items-center gap-3 group;
+  }
+  
+  .btn-arrow::after {
+    content: '→';
+    @apply transition-transform duration-300;
+  }
+  
+  .btn-arrow:hover::after {
+    @apply translate-x-2;
+  }
+  
+  .spaced-text {
+    letter-spacing: 0.4em;
+  }
+  
+  .gradient-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent;
+  }
+
+  /* Shining text preloader */
+  .shining-text {
+    font-size: 2.5rem;
+    font-family: var(--font-heading);
+    letter-spacing: 0.4em;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--foreground) / 0.1) 0%,
+      hsl(var(--warm-gold)) 50%,
+      hsl(var(--foreground) / 0.1) 100%
+    );
+    background-size: 80%;
+    background-repeat: no-repeat;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: shining 3s linear infinite;
+  }
+
+  @keyframes shining {
+    from {
+      background-position: -500%;
+    }
+    to {
+      background-position: 500%;
+    }
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    will-change: opacity;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    will-change: opacity, transform;
+  }
+  
+  .animate-slide-left {
+    animation: slideLeft 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    will-change: opacity, transform;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 40px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes slideLeft {
+    from {
+      opacity: 0;
+      transform: translate3d(40px, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* Smooth transitions utility */
+  .smooth-transition {
+    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Animated favicon pulse effect via CSS */
+  @keyframes faviconPulse {
+    0%, 100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.2);
+    }
+  }
+}
